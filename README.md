@@ -34,3 +34,34 @@ print(sim.data.qpos)
 - 安装成功则如下图所示：
 
 ![测试成功图](https://github.com/cdh66666/Deep_RL_Control/blob/main/4-img_for_readme/mujoco%26mujoco_py%E5%AE%89%E8%A3%85%E6%88%90%E5%8A%9F%E6%B5%8B%E8%AF%95%E5%9B%BE.png)
+
+- 测试gym环境：
+
+  ```python
+  import os
+  os.add_dll_directory(r"C:\Users\Administrator\.mujoco\mjpro150\bin")
+  os.add_dll_directory(r"E:\anaconda_cdh\envs\gym\Lib\site-packages\mujoco_py")
+  
+  
+  import gym
+  # import mujoco
+  env = gym.make('InvertedPendulum-v2', render_mode='human')
+  env = env.unwrapped
+  for episode in range(20):
+      observation = env.reset() #环境重置
+      print(episode)
+      # for timestep in range(100):
+      while True:
+          # print(timestep)
+          env.render() #可视化
+          action = env.action_space.sample() #动作采样
+          observation_, reward, done, info = env.step(action)[:4]
+          # if done:
+          #     # print(observation)
+          #     print('Episode {}'.format(episode))
+          #     break
+          observation=observation_
+  env.close()
+  ```
+
+  ![蚂蚁环境](https://github.com/cdh66666/Deep_RL_Control/blob/main/4-img_for_readme/mujoco-%E8%9A%82%E8%9A%81%E7%8E%AF%E5%A2%83.gif)
