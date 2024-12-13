@@ -1,5 +1,9 @@
 # Deep_RL_Control
  深度强化学习-机器人控制
 
-# 目前主要任务为实现四足机器人运动控制研究
+# 1. 深度强化学习实战：OpenAI Gym
+
+## 1. Mujoco库安装
+
+https://zhuanlan.zhihu.com/p/502112539
 
