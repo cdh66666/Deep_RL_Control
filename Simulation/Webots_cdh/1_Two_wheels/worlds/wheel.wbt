@@ -1,0 +1,148 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation -0.7976164696257458 0.5448427636331481 0.2587553483473433 2.8663665178762687
+  position -0.35171312726099785 1.0748179671841824 0.8268914175165679
+  follow "rectangle arena"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  rotation 1 0 0 -1.57
+}
+Robot {
+  translation 0.42201625708696366 -0.08928546391287713 -0.11665238287779302
+  rotation -0.005199096757605517 0.9996555519502948 0.025724440671398466 2.7307271203405254
+  children [
+    Solid {
+      translation 0 0.11 0
+      rotation 1 0 0 -1.57
+      children [
+        DEF sensor Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.005
+            radius 0.005
+          }
+        }
+      ]
+      name "solid(2)"
+      boundingObject USE sensor
+      physics Physics {
+      }
+    }
+    DEF sensor_forward DistanceSensor {
+      translation 0 0.11 0
+      rotation 0 1 0 1.57
+      name "sensor_forward"
+    }
+    DEF sensor_right DistanceSensor {
+      translation 0 0.11 0
+      rotation 0 1 0 0
+      name "sensor_right"
+    }
+    DEF sensor_left DistanceSensor {
+      translation 0 0.11 0
+      rotation 0 1 0 3.14
+      name "sensor_left"
+    }
+    DEF Body Pose {
+      translation 0 0.1 0
+      rotation -1 0 0 1.5707963267948966
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.85098 0.25098 1
+            roughness 1
+            metalness 0
+          }
+          geometry Cylinder {
+            height 0.02
+            radius 0.01
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -17047.03340466392
+        anchor 0.01 0.0975 0
+      }
+      device [
+        RotationalMotor {
+          name "motorRight"
+        }
+      ]
+      endPoint Solid {
+        translation 0.01 0.0975 0
+        rotation 0.6871525344927311 0.23747464533642237 -0.6866055542759296 3.608262404620067
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              baseColor 0.509804 0.992157 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.005
+              radius 0.008
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF wheel_phy Physics {
+        }
+        linearVelocity -0.019181664070354237 -3.702227849150208e-05 0.04400986310000911
+        angularVelocity 5.500268843828651 -0.0019055859853900677 2.3972977046139414
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -18095.538058819828
+        anchor -0.01 0.0975 0
+      }
+      device [
+        RotationalMotor {
+          name "motorLeft"
+        }
+      ]
+      endPoint Solid {
+        translation -0.01 0.0975 0
+        rotation -0.43032623416937515 0.7936834118984262 -0.429983690228917 1.7990620952919338
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              baseColor 0.509804 0.992157 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.005
+              radius 0.008
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE wheel
+        physics DEF wheel_phy Physics {
+        }
+        linearVelocity -0.01918189132404208 -3.307111873451689e-05 0.04401029298710432
+        angularVelocity 5.500268843138799 -0.0019055864749936203 2.397297704047146
+      }
+    }
+  ]
+  boundingObject USE Body
+  physics Physics {
+  }
+  controller "my_controller"
+  linearVelocity -0.019182350459714215 -3.5046473405276605e-05 0.04400982764645582
+  angularVelocity -8.073809855129871e-05 -2.219198083567935e-05 0.0001846628471825878
+}
