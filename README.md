@@ -23,16 +23,23 @@ git clone --depth 1 https://github.com/cdh66666/Deep_RL_Control.git
 之后，我新建了一个同名仓库，将原仓库资料迁移过来并去除了所有历史记录，现在项目大小仅为 3.7MB，且已删除原仓库。后续计划搭建环境并对代码进行测试。
 
 ### [2025 年 2 月 16 日]
-为配置深度强化学习环境，我参考了 [ISAAC Lab 官方指导文档](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/pip_installation.html)，其详细说明了环境搭建的步骤与要求。
+为配置深度强化学习环境，我参考了 [ISAAC Lab 官方指导文档](https://isaac-sim.github.io/IsaacLab/main/source/setup/installation/pip_installation.html)，该文档详细阐述了环境搭建的步骤与要求。
 ![issac_lab示例图](img_for_readme/issac_lab示例图.png)
 
-同时，我还参考了 [isaacsim+isaaclab 一键安装脚本](https://www.bilibili.com/video/BV1k5BtYDEHU/?spm_id_from=333.337.search-card.all.click&vd_source=17ff47d01089cfbc609f2983503e8663) 视频。按照视频中的指导，可通过以下命令完成一键安装：
-**特别注意**：<u>需有miniconda和ros2 humble环境。</u>
+同时，我还借鉴了 [isaacsim+isaaclab 一键安装脚本](https://www.bilibili.com/video/BV1k5BtYDEHU/?spm_id_from=333.337.search-card.all.click&vd_source=17ff47d01089cfbc609f2983503e8663) 视频中的方法。**特别注意**，<u>不管采用何种方法安装，都需预先配置好 miniconda 和 ros2 humble 环境。</u>
+
+按照视频指导，通过执行以下命令可实现一键安装：
 ```bash
 wget https://docs.robotsfan.com/install_isaaclab.sh -O install_isaaclab.sh && bash install_isaaclab.sh
 ```
-执行上述代码后，即可快速搭建所需环境，后续可基于此开展相关开发与测试工作。 
+执行上述命令后，所需环境便快速搭建完成，后续可基于此开展相关开发与测试工作。
 
+目前，我已将所需环境全部安装至名为 `isaac` 的 Conda 虚拟环境中。激活该环境可使用如下命令：
+```bash
+conda activate isaac
+```
+
+激活后，能够正常使用 `isaacsim` 命令打开程序。然而，运行过程中出现诸多报错信息，且无法启用 GPU 加速功能，后续需对这些问题进行排查解决。 
  
 
 ## 极简环境配置
