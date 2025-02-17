@@ -6,6 +6,8 @@
   - [项目日志](#项目日志)
     - [\[2025 年 2 月 15 日\]](#2025-年-2-月-15-日)
     - [\[2025 年 2 月 16 日\]](#2025-年-2-月-16-日)
+    - [\[2025 年 2 月 17 日\]](#2025-年-2-月-17-日)
+      - [项目环境安装步骤](#项目环境安装步骤)
   - [极简环境配置](#极简环境配置)
     - [Miniconda 安装](#miniconda-安装)
     - [小鱼一键安装相关软件](#小鱼一键安装相关软件)
@@ -41,6 +43,55 @@ conda activate isaac
 
 激活后，能够正常使用 `isaacsim` 命令打开程序。然而，运行过程中出现诸多报错信息，且无法启用 GPU 加速功能，后续需对这些问题进行排查解决。 
  
+### [2025 年 2 月 17 日]
+
+在今日的工作中，安装 Isaac Lab 时频繁遭遇报错，致使安装工作未能成功。面对这一困境，我决定调整策略，重新尝试启用 Isaac Gym，期望以此为突破口推进相关工作。
+
+与此同时，我开启了[强化学习训练 GO2 翻越多种地形](https://github.com/jindadu00/legged_robot_competition)项目的复刻工作。此项目极具研究价值与实践意义，它致力于运用强化学习算法，让 GO2 机器人在多样化的地形环境中自如地完成翻越动作。
+![项目相关图片](img_for_readme/image.png)
+
+#### 项目环境安装步骤
+1. **创建并激活虚拟环境**
+    - 为项目创建一个名为 `legged_robot_parkour` 的 Python 3.10 虚拟环境：
+```bash
+conda create --name legged_robot_parkour python=3.10
+```
+  - 激活该虚拟环境：
+```bash
+conda activate legged_robot_parkour
+```
+2. **安装 PyTorch 及其相关库**
+根据 [PyTorch 官网](https://pytorch.org/get-started/previous-versions/) 的指导，针对 CUDA 12.1 环境，安装指定版本的 PyTorch 及相关库：
+```bash
+conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=12.1 -c pytorch -c nvidia
+```
+3. **后续安装操作**
+完成上述步骤后，其余的环境安装步骤可参照项目链接中的说明进行。后续我会持续跟进安装情况，并记录遇到的问题与解决方案。 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 极简环境配置
 ### Miniconda 安装
