@@ -9,6 +9,7 @@
     - [\[2025 年 2 月 17 日\]](#2025-年-2-月-17-日)
       - [项目环境安装步骤](#项目环境安装步骤)
   - [极简环境配置](#极简环境配置)
+    - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
     - [小鱼一键安装相关软件](#小鱼一键安装相关软件)
     - [VScode 开发与插件配置](#vscode-开发与插件配置)
@@ -94,8 +95,24 @@ conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=
 
 
 ## 极简环境配置
+### 特定网络工具使用指南
+参考链接：[四轮足仿真 - cdh](https://suyvt0crm5.feishu.cn/docx/XK72dTuyco6y7PxgA0dcaZZVngd)
+
+1. **下载资源**：下载`0.tar`及`.yaml`配置文件。
+2. **解压与启动**：在终端运行`tar -xvf 0.tar`解压`0.tar`。解压后，进入对应目录执行`./cfw`，打开界面，如下图所示：
+![用户界面截图](img_for_readme/image2.png)
+3. **导入配置文件**：在打开的界面左侧，点击“Profiles”，选择“import”，导入之前下载的`.yaml`配置文件。
+4. **选择节点**：点击界面左侧“proxies”，挑选一个延迟较低的节点，右键点击该节点并选择“run script” 。
+5. **网络代理设置**：打开电脑“设置”，进入“网络”，找到“网络代理”板块，参照以下图示进行设置：
+![网络代理设置截图](img_for_readme/image3.png)
+6. **端口同步**：每次重启电脑后，需保证电脑网络代理端口与界面左侧“General”下的“Port”一致。若“General”中的端口号改变，要把网络代理原来的端口7890更新为新的端口值。
+
+**注意**：操作需符合相关规定 。 
+
+
 ### Miniconda 安装
 可从 [Miniconda 官网](https://docs.anaconda.com/miniconda/install/#quick-command-line-install) 下载适用于 Linux 系统的安装脚本，然后按照官网的安装教程完成安装。
+
 
 ### 小鱼一键安装相关软件
 使用小鱼一键安装脚本能够便捷地同时安装多个实用软件，其操作极为简便。在终端中依次运行以下命令：
