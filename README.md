@@ -8,6 +8,9 @@
     - [\[2025 年 2 月 16 日\]](#2025-年-2-月-16-日)
     - [\[2025 年 2 月 17 日\]](#2025-年-2-月-17-日)
       - [项目环境安装步骤](#项目环境安装步骤)
+    - [\[2025 年 2 月 18 日\]](#2025-年-2-月-18-日)
+      - [遇到的问题及解决尝试](#遇到的问题及解决尝试)
+      - [项目环境安装步骤](#项目环境安装步骤-1)
   - [极简环境配置](#极简环境配置)
     - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
@@ -18,6 +21,12 @@
 
 
 ## 项目日志
+ 
+- 电脑配置如下：
+    - 操作系统：Ubuntu 22.04
+    - CUDA 版本：12.1
+    - GPU：NVIDIA GeForce MX550
+
 ### [2025 年 2 月 15 日]
 最初使用常规的 `git clone` 命令克隆四足 RL 毕设项目代码时，由于会获取全量历史记录，导致原本 3.7MB 的 GitHub 压缩包项目在克隆后达到 900MB。采用 `git clone --depth 1` 命令可仅获取最新版本，有效减少磁盘占用与克隆时间。本项目的完整克隆命令为：
 ```bash
@@ -70,9 +79,69 @@ conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=
 完成上述步骤后，其余的环境安装步骤可参照项目链接中的说明进行。后续我会持续跟进安装情况，并记录遇到的问题与解决方案。 
 
 
+### [2025 年 2 月 18 日]
 
+在今日的工作中，我继续致力于解决 legged_robot 的安装和运行问题，期间尝试了多种方法来解决遇到的报错，但最终仍未能成功，推测可能是电脑硬件条件的限制。
+ 
 
+#### 遇到的问题及解决尝试
+1. **CUDA 内存分配失败**
+    - **错误信息**：PxgCudaDeviceMemoryAllocator fail to allocate memory 339738624 bytes!! Result = 2
+    - **解决尝试**：
+        - 检查 GPU 内存使用情况：
+```bash
+nvidia-smi
+```
+- 清理 GPU 内存：
+```python
+import torch
+torch.cuda.empty_cache()
+```
+- 减少 `num_envs` 的值，从 64 逐步减少到 16。
+1. **非法内存访问**
+    - **错误信息**：Gym cuda error: an illegal memory access was encountered
+    - **解决尝试**：
+        - 设置环境变量 `CUDA_LAUNCH_BLOCKING=1`：
+```bash
+export CUDA_LAUNCH_BLOCKING=1
+```
+- 使用 `cuda-memcheck` 工具检查内存访问错误：
+```bash
+cuda-memcheck python train.py --task=go2 --num_envs=16 --headless --max_iterations=50
+```
+1. **PyTorch 和 CUDA 版本不匹配**
+    - **错误信息**：RuntimeError: CUDA error: an illegal memory access was encountered
+    - **解决尝试**：安装与 CUDA 12.1 兼容的 PyTorch：
+```bash
+conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=12.1 -c pytorch -c nvidia
+```
 
+#### 项目环境安装步骤
+1. **创建并激活虚拟环境**
+    - 为项目创建一个名为 `legged_robot_parkour` 的 Python 3.10 虚拟环境：
+```bash
+conda create --name legged_robot_parkour python=3.10
+```
+    - 激活该虚拟环境：
+```bash
+conda activate legged_robot_parkour
+```
+2. **安装 Isaac Gym 及相关依赖**
+```bash
+cd /path/to/legged_robot_competition
+cd rsl_rl && pip install -e .
+cd ..
+cd isaacgym/python && pip install -e .
+cd ..
+cd legged_gym && pip install -e .
+cd ..
+```
+3. **运行训练脚本**
+```bash
+python train.py --task=go2 --num_envs=16 --headless --max_iterations=50
+```
+
+尽管采取了上述一系列解决措施，运行训练脚本时依旧报错 CUDA 内存分配失败，目前怀疑是电脑的 GPU（NVIDIA GeForce MX550）性能不足所致，后续可能需要更换电脑以继续推进项目。 
 
 
 
