@@ -1,20 +1,20 @@
 # 四足 DRL 运动控制研究
 
-以下所有操作均针对 Linux 系统，具体使用的是 Ubuntu 22.04。
+以下所有操作均针对 Linux 系统。
 
 - [四足 DRL 运动控制研究](#四足-drl-运动控制研究)
   - [项目日志](#项目日志)
     - [\[2025 年 2 月 15 日\]](#2025-年-2-月-15-日)
     - [\[2025 年 2 月 16 日\]](#2025-年-2-月-16-日)
     - [\[2025 年 2 月 17 日\]](#2025-年-2-月-17-日)
-      - [项目环境安装步骤](#项目环境安装步骤)
     - [\[2025 年 2 月 18 日\]](#2025-年-2-月-18-日)
       - [遇到的问题及解决尝试](#遇到的问题及解决尝试)
-      - [项目环境安装步骤](#项目环境安装步骤-1)
     - [\[2025年2月18日\]](#2025年2月18日)
+    - [\[2025年2月27日\]](#2025年2月27日)
   - [极简环境配置](#极简环境配置)
     - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
+    - [显卡驱动安装](#显卡驱动安装)
     - [小鱼一键安装相关软件](#小鱼一键安装相关软件)
     - [VScode 开发与插件配置](#vscode-开发与插件配置)
   - [实战项目](#实战项目)
@@ -23,10 +23,14 @@
 
 ## 项目日志
  
-- 电脑配置如下：
+- 2月18日以前电脑配置如下：
     - 操作系统：Ubuntu 22.04
     - CUDA 版本：12.1
     - GPU：NVIDIA GeForce MX550
+- 2月18日以后电脑配置如下：
+    - 操作系统：Ubuntu 20.04
+    - CUDA 版本：12.1
+    - GPU：RTX 4060
 
 ### [2025 年 2 月 15 日]
 最初使用常规的 `git clone` 命令克隆四足 RL 毕设项目代码时，由于会获取全量历史记录，导致原本 3.7MB 的 GitHub 压缩包项目在克隆后达到 900MB。采用 `git clone --depth 1` 命令可仅获取最新版本，有效减少磁盘占用与克隆时间。本项目的完整克隆命令为：
@@ -60,24 +64,7 @@ conda activate isaac
 
 与此同时，我开启了[强化学习训练 GO2 翻越多种地形](https://github.com/jindadu00/legged_robot_competition)项目的复刻工作。此项目极具研究价值与实践意义，它致力于运用强化学习算法，让 GO2 机器人在多样化的地形环境中自如地完成翻越动作。
 ![项目相关图片](img_for_readme/image.png)
-
-#### 项目环境安装步骤
-1. **创建并激活虚拟环境**
-    - 为项目创建一个名为 `legged_robot_parkour` 的 Python 3.10 虚拟环境：
-```bash
-conda create --name legged_robot_parkour python=3.10
-```
-  - 激活该虚拟环境：
-```bash
-conda activate legged_robot_parkour
-```
-2. **安装 PyTorch 及其相关库**
-根据 [PyTorch 官网](https://pytorch.org/get-started/previous-versions/) 的指导，针对 CUDA 12.1 环境，安装指定版本的 PyTorch 及相关库：
-```bash
-conda install pytorch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1 pytorch-cuda=12.1 -c pytorch -c nvidia
-```
-3. **后续安装操作**
-完成上述步骤后，其余的环境安装步骤可参照项目链接中的说明进行。后续我会持续跟进安装情况，并记录遇到的问题与解决方案。 
+ 
 
 
 ### [2025 年 2 月 18 日]
@@ -111,31 +98,6 @@ export CUDA_LAUNCH_BLOCKING=1
 cuda-memcheck python train.py --task=go2 --num_envs=16 --headless --max_iterations=50
 ```
 
-#### 项目环境安装步骤
-1. **创建并激活虚拟环境**
-    - 为项目创建一个名为 `legged_robot_parkour` 的 Python 3.10 虚拟环境：
-```bash
-conda create --name legged_robot_parkour python=3.10
-```
-    - 激活该虚拟环境：
-```bash
-conda activate legged_robot_parkour
-```
-2. **安装 Isaac Gym 及相关依赖**
-```bash
-cd /path/to/legged_robot_competition
-cd rsl_rl && pip install -e .
-cd ..
-cd isaacgym/python && pip install -e .
-cd ..
-cd legged_gym && pip install -e .
-cd ..
-```
-3. **运行训练脚本**
-```bash
-python train.py --task=go2 --num_envs=16 --headless --max_iterations=50
-```
-
 尽管采取了上述一系列解决措施，运行训练脚本时依旧报错 CUDA 内存分配失败，目前怀疑是电脑的 GPU（NVIDIA GeForce MX550）性能不足所致，后续可能需要更换电脑以继续推进项目。 
 
 
@@ -155,19 +117,56 @@ python train.py --task=go2 --num_envs=16 --headless --max_iterations=50
 
 
 
+### [2025年2月27日]
 
+新电脑已完成配置，整体外观如下所示：
+![cdh新电脑](img_for_readme/cdh新电脑.jpg) 
 
+首先进行 CUDA 12.1 相关环境的配置，具体执行以下命令：
+```bash
+conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=12.1 -c pytorch -c nvidia
+``` 
 
+然后依照 [legged_robot_competition](https://github.com/jindadu00/legged_robot_competition) 项目的要求，重新搭建运行环境。
 
+运行如下指令进行训练：
+```bash
+conda activate legged_robot
+cd legged_gym/legged_gym/scripts
+python train.py --task=go2 --num_envs=64 --headless --max_iterations=50
+```
 
+运行之后报错如下：
+```bash
+File "/home/cdh/legged_robot_competition/isaacgym/python/isaacgym/torch_utils.py", line 135, in <module>
+    def get_axis_params(value, axis_idx, x_value=0., dtype=np.float, n_dims=3):
+  File "/home/cdh/miniconda3/envs/legged_robot/lib/python3.8/site-packages/numpy/__init__.py", line 305, in __getattr__
+    raise AttributeError(__former_attrs__[attr])
+AttributeError: module 'numpy' has no attribute 'float'.
+```
+将下面路径代码的np.float改为float即可。
+```bash
+legged_robot_competition/isaacgym/python/isaacgym/torch_utils.py", line 135
+```
+继续运行，报错如下：
+```bash
+ModuleNotFoundError: No module named 'tensorboard'
+```
+执行以下命令安装：
+```bash
+conda install tensorboard
+```
+运行成功，开始训练。
 
-
-
-
-
-
-
-
+运行如下指令进行模型测试：
+```bash
+conda activate legged_robot
+cd legged_gym/legged_gym/scripts
+#注意修改路径
+python play.py --task=go2 --num_envs=1  --checkpoint=50 --load_run=/home/cdh/legged_robot_competition/legged_gym/logs/rough_go2/Feb27_23-57-31_
+```
+运行结果如下：
+![alt text](<img_for_readme/2025-02-28 00-15-21 的屏幕截图.png>)
 
 ## 极简环境配置
 ### 特定网络工具使用指南
@@ -188,6 +187,21 @@ python train.py --task=go2 --num_envs=16 --headless --max_iterations=50
 ### Miniconda 安装
 可从 [Miniconda 官网](https://docs.anaconda.com/miniconda/install/#quick-command-line-install) 下载适用于 Linux 系统的安装脚本，然后按照官网的安装教程完成安装。
 
+### 显卡驱动安装
+
+可从 [NVIDIA 官网](https://www.nvidia.com/Download/index.aspx?lang=cn) 下载适用于 Linux 系统的显卡驱动安装包，然后按照官网的安装教程完成安装。也可按照如下命令自动安装：
+```bash
+# 更新系统软件包列表，以便获取最新的软件包信息
+sudo apt update
+# 升级系统中已安装的软件包到最新版本，-y 参数表示自动确认所有提示
+sudo apt upgrade -y
+# 使用 ubuntu-drivers 工具自动检测并安装适合当前 NVIDIA 显卡的驱动程序
+sudo ubuntu-drivers autoinstall
+# 重启系统，使新安装的显卡驱动生效
+sudo reboot
+# 验证 NVIDIA 显卡驱动是否安装成功，若成功会输出显卡的相关信息
+nvidia-smi
+```
 
 ### 小鱼一键安装相关软件
 使用小鱼一键安装脚本能够便捷地同时安装多个实用软件，其操作极为简便。在终端中依次运行以下命令：
