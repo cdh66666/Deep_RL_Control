@@ -173,7 +173,7 @@ python play.py --task=go2 --num_envs=1  --checkpoint=50 --load_run=/home/cdh/leg
 ### [2025年2月28日]
 今天，啥也没调，单纯增加训练轮数至5000轮，结果如下：
 ![alt text](<img_for_readme/Peek 2025-02-28 23-43.gif>)
-
+5000轮训练用了一个小时不到，比较快速，不过GPU利用率才45%，之后的训练尽量优化效果都在5000轮以内优化。
 
 
 ## 极简环境配置
