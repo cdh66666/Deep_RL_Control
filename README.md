@@ -11,11 +11,13 @@
       - [遇到的问题及解决尝试](#遇到的问题及解决尝试)
     - [\[2025年2月18日\]](#2025年2月18日)
     - [\[2025年2月27日\]](#2025年2月27日)
+    - [\[2025年2月28日\]](#2025年2月28日)
   - [极简环境配置](#极简环境配置)
     - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
     - [显卡驱动安装](#显卡驱动安装)
     - [小鱼一键安装相关软件](#小鱼一键安装相关软件)
+    - [Peek：Ubuntu 屏幕录制成 GIF 工具](#peekubuntu-屏幕录制成-gif-工具)
     - [VScode 开发与插件配置](#vscode-开发与插件配置)
   - [实战项目](#实战项目)
     - [基于 DDPG 算法的倒立摆控制](#基于-ddpg-算法的倒立摆控制)
@@ -105,16 +107,15 @@ cuda-memcheck python train.py --task=go2 --num_envs=16 --headless --max_iteratio
 
 今日，电脑状况频出，频繁出现黑屏现象，每次黑屏时，屏幕上便会浮现出一行行白字报错信息，详情可见：
 ![此处图片](img_for_readme/报错.jpg) 。鉴于此电脑不仅故障频发，且性能已难以满足当下需求，经过深思熟虑，我毅然决定更换台式电脑（8000元）。精心挑选的新电脑配置如下：
-- **处理器及散热**：选用i5 - 13600KF处理器，搭配6管风冷散热器，可保障处理器在高强度运行时也能保持低温，稳定工作。
-- **主板**：华硕b760M D5主板，其出色的稳定性与兼容性，能为各个硬件组件协同工作奠定坚实基础。
-- **内存**：威刚32G 6400高频内存，无论是多任务处理还是运行大型软件，都能轻松应对，极大提升系统运行流畅度。
-- **存储**：金士顿1T固态硬盘，拥有高速读写速度，让系统启动以及各类程序加载都变得迅速，节省大量等待时间。
-- **显卡**：耕升4060 8G显卡，无论是日常的图形设计工作，还是畅玩主流游戏，都能提供出色的图形处理能力。
-- **机箱与供电**：机箱搭配750W电源，为整机稳定供电，确保各个硬件在任何工作负载下都能安全、稳定运行。
-- **显示器**：配备小米27寸显示器，带来清晰、舒适的视觉体验，无论是工作还是娱乐，都能呈现出绝佳的画面效果。
-
-满心期待新电脑能顺利解决当前困扰，为我带来全新、高效的使用体验。 
-
+- 处理器：i5 - 13600KF
+- 散热器：6管风冷散热器
+- 主板：华硕b760M D5 带wifl 蓝牙
+- 内存：威刚32G 6400高频内存
+- 存储：金士顿1T固态硬盘
+- 显卡：耕升4060 8G
+- 机箱与电源：机箱搭配750W电源
+- 显示器：AOC 27寸 2k 100hz 显示器 
+ 
 
 
 ### [2025年2月27日]
@@ -122,7 +123,7 @@ cuda-memcheck python train.py --task=go2 --num_envs=16 --headless --max_iteratio
 新电脑已完成配置，整体外观如下所示：
 ![cdh新电脑](img_for_readme/cdh新电脑.jpg) 
 
-首先进行 CUDA 12.1 相关环境的配置，具体执行以下命令：
+首先进行 pytorch==2.4.0 & CUDA 12.1 相关环境的配置，具体执行以下命令：
 ```bash
 conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=12.1 -c pytorch -c nvidia
 ``` 
@@ -132,7 +133,8 @@ conda install pytorch==2.4.0 torchvision==0.19.0 torchaudio==2.4.0 pytorch-cuda=
 运行如下指令进行训练：
 ```bash
 conda activate legged_robot
-cd legged_gym/legged_gym/scripts
+cd ~/legged_robot_competition/legged_gym/legged_gym/scripts
+
 python train.py --task=go2 --num_envs=64 --headless --max_iterations=50
 ```
 
@@ -161,12 +163,18 @@ conda install tensorboard
 运行如下指令进行模型测试：
 ```bash
 conda activate legged_robot
-cd legged_gym/legged_gym/scripts
-#注意修改路径
+cd ~/legged_robot_competition/legged_gym/legged_gym/scripts
+#注意修改路径，时间，训练轮数
 python play.py --task=go2 --num_envs=1  --checkpoint=50 --load_run=/home/cdh/legged_robot_competition/legged_gym/logs/rough_go2/Feb27_23-57-31_
 ```
 运行结果如下：
 ![alt text](<img_for_readme/2025-02-28 00-15-21 的屏幕截图.png>)
+
+### [2025年2月28日]
+今天，啥也没调，单纯增加训练轮数至5000轮，结果如下：
+![alt text](<img_for_readme/Peek 2025-02-28 23-43.gif>)
+
+
 
 ## 极简环境配置
 ### 特定网络工具使用指南
@@ -204,13 +212,15 @@ nvidia-smi
 ```
 
 ### 小鱼一键安装相关软件
-使用小鱼一键安装脚本能够便捷地同时安装多个实用软件，其操作极为简便。在终端中依次运行以下命令：
 ```bash
-wget http://fishros.com/install -O fishros_install.sh
-chmod +x fishros_install.sh
-./fishros_install.sh
+wget http://fishros.com/install -O fishros && . fishros
 ```
-**特别注意**：<u>在安装过程中，务必选择安装VSCode、GitHub Desktop Linux版、ROS 2 Humble版本以及微信Linux版。 </u>
+
+### Peek：Ubuntu 屏幕录制成 GIF 工具
+```bash
+sudo apt update
+sudo apt install peek
+```
 
 
 ### VScode 开发与插件配置
