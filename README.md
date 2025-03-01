@@ -11,6 +11,7 @@
     - [\[2025 年 2 月 19 日\]](#2025-年-2-月-19-日)
     - [\[2025 年 2 月 27 日\]](#2025-年-2-月-27-日)
     - [\[2025 年 2 月 28 日\]](#2025-年-2-月-28-日)
+    - [\[2025 年 3 月 1 日\]](#2025-年-3-月-1-日)
   - [极简环境配置](#极简环境配置)
     - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
@@ -174,7 +175,37 @@ python play.py --task=go2 --num_envs=1  --checkpoint=50 --load_run=/home/cdh/leg
 ![alt text](<img_for_readme/Peek 2025-02-28 23-43.gif>)
 5000轮训练用了一个小时不到，比较快速，不过GPU利用率才45%，之后的训练尽量优化效果都在5000轮以内优化。
 
+### [2025 年 3 月 1 日]
+今天单纯增加训练轮数至25000轮，花了7.5h，结果如下：
+![alt text](<img_for_readme/Peek 2025-03-01 09-34.gif>)
+训练效果很拉，需要自定义奖励函数，之后再进行优化。
 
+同时，legged_gym项目会自动生成参数图表，方便写论文，如下图：
+![alt text](<img_for_readme/2025-03-01 09-36-48 的屏幕截图.png>)
+
+今天看到一个新项目，尝试复刻：**经典内模估计+强化学习，四足机器人训练一小时，即可穿越任意地形**
+论文: https://arxiv.org/pdf/2312.11460
+Github: https://github.com/OpenRobotLab/HIMLoco
+项目网页: https://junfeng-long.github.io/HIMLoco/
+
+**复刻记录如下：**
+在运行 `HIMLoco` 项目的训练脚本 `train.py` 时，你主要遇到了两类问题，以下是详细总结：
+
+**1. 共享库文件缺失**
+- **问题表现**：运行脚本时抛出 `ImportError: libpython3.7m.so.1.0: cannot open shared object file: No such file or directory` 错误，系统无法找到 `libpython3.7m.so.1.0` 共享库文件。
+- **排查思路**：首先确认 Python 3.7 是否已安装，之后使用 `find` 命令在系统中查找该共享库文件的具体位置。
+- **解决办法**：将文件所在目录添加到动态链接库搜索路径。有临时和永久两种添加方式，临时添加可使用 `export` 命令；永久添加则需修改 `.bashrc` 文件并更新缓存。
+
+**2. GPU 显存不足**
+- **问题表现**：运行脚本时出现 `torch.cuda.OutOfMemoryError` 错误，显示 GPU 显存不足，无法分配所需的 100 MiB 内存。
+- **排查思路**：批量大小会影响显存使用量，因未直接找到 `batch_size` 定义，根据代码里 `batch_size = num_envs * num_transitions_per_env` 的计算逻辑，通过 `grep` 命令查找 `num_envs` 和 `num_transitions_per_env` 的定义。
+- **解决办法**：
+    - `num_envs` 在 `/home/cdh/HIMLoco/legged_gym/legged_gym/envs/aliengo/aliengo_config.py` 和 `/home/cdh/HIMLoco/legged_gym/legged_gym/envs/base/legged_robot_config.py` 文件中被赋值为 `4096`，可将其修改为较小值（如 `1024` 或 `512`）。
+    - 对于 `num_transitions_per_env`，查找结果中未发现其具体赋值，需进一步在代码中搜索默认值并尝试减小。
+    - 还可尝试其他减少显存占用的方法，如释放不必要的显存（使用 `torch.cuda.empty_cache()`）、采用混合精度训练、检查数据加载和预处理、简化模型结构、使用多 GPU 训练以及设置 `max_split_size_mb` 等。 
+
+![alt text](img_for_readme/image11.png)
+ 
 ## 极简环境配置
 ### 特定网络工具使用指南
 参考链接：[四轮足仿真 - cdh](https://suyvt0crm5.feishu.cn/docx/XK72dTuyco6y7PxgA0dcaZZVngd)
