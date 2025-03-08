@@ -14,6 +14,10 @@
     - [\[2025 年 3 月 1 日\]](#2025-年-3-月-1-日)
     - [\[2025 年 3 月 2 日\]](#2025-年-3-月-2-日)
     - [\[2025 年 3 月 3 日\]](#2025-年-3-月-3-日)
+    - [\[2025 年 3 月 4 日\]](#2025-年-3-月-4-日)
+    - [\[2025 年 3 月 5 日\]](#2025-年-3-月-5-日)
+    - [\[2025 年 3 月 6 日 - 3 月 7 日\]](#2025-年-3-月-6-日---3-月-7-日)
+    - [\[2025 年 3 月 8 日\]](#2025-年-3-月-8-日)
   - [极简环境配置](#极简环境配置)
     - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
@@ -191,7 +195,7 @@ Github: https://github.com/OpenRobotLab/HIMLoco
 项目网页: https://junfeng-long.github.io/HIMLoco/
 
 **复刻记录如下：**
-在运行 `HIMLoco` 项目的训练脚本 `train.py` 时，你主要遇到了两类问题，以下是详细总结：
+在运行 [HIMLoco](https://github.com/OpenRobotLab/HIMLoco) 项目的训练脚本 `train.py` 时，你主要遇到了两类问题，以下是详细总结：
 
 **1. 共享库文件缺失**
 - **问题表现**：运行脚本时抛出 `ImportError: libpython3.7m.so.1.0: cannot open shared object file: No such file or directory` 错误，系统无法找到 `libpython3.7m.so.1.0` 共享库文件。
@@ -219,9 +223,21 @@ Github: https://github.com/OpenRobotLab/HIMLoco
 研究了下[VS Code 中设置 Markdown 粘贴图片的位置](https://www.cnblogs.com/PrintY/p/18125505)
 
 ### [2025 年 3 月 3 日]
-今天做了一些中期答辩PPT的准备,规划了一下计划，详情参考：[中期答辩PPT规划](PPT.md),[四足机器人研究路线](DRL_robot.md)
+今天做了一些中期答辩PPT的准备,规划了一下计划，详情参考：[毕设-cdh](https://suyvt0crm5.feishu.cn/docx/ZsUvd5iTKorhvsxocvdcNj3Unuh)
+
+### [2025 年 3 月 4 日]
+今天一天都在出差，了解论文相关内容。将比较大的文件都搬到飞书-[毕设-cdh](https://suyvt0crm5.feishu.cn/docx/ZsUvd5iTKorhvsxocvdcNj3Unuh)，github只保留代码部分。
+
+### [2025 年 3 月 5 日]
+今天完成了PPT大部分内容-[毕设-cdh](https://suyvt0crm5.feishu.cn/docx/ZsUvd5iTKorhvsxocvdcNj3Unuh)，还剩实验部分，照着这个视频做：[基于Isaac Gym的四足机器狗强化学习控制翻越梅花桩](https://www.bilibili.com/video/BV1qQ4VefEa6/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=17ff47d01089cfbc609f2983503e8663)。
+
+### [2025 年 3 月 6 日 - 3 月 7 日]
+完成了[毕设中期答辩-ppt](https://suyvt0crm5.feishu.cn/docx/F405d8oTnoZYa0x3OwrcVKoqnif)。
 
 
+### [2025 年 3 月 8 日]
+[怎么把vscode窗口调透明(linux版本)](https://aicoding.csdn.net/6780b51659bcf8384aa20e68.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzAxNzMyNywiZXhwIjoxNzQyMDQ5ODgzLCJpYXQiOjE3NDE0NDUwODMsInVzZXJuYW1lIjoiYnVtYWlrZWwifQ.w6busCc_8WboikZkh-8EkGkbyGkLzBH_Nu4G74GMpZk&spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-106723246-blog-103627296.235%5Ev43%5Epc_blog_bottom_relevance_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-106723246-blog-103627296.235%5Ev43%5Epc_blog_bottom_relevance_base3&utm_relevant_index=10)
+一边写代码，一边看视频哈哈！
 
 ## 极简环境配置
 ### 特定网络工具使用指南
