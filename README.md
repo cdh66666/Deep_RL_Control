@@ -16,8 +16,9 @@
     - [\[2025 年 3 月 3 日\]](#2025-年-3-月-3-日)
     - [\[2025 年 3 月 4 日\]](#2025-年-3-月-4-日)
     - [\[2025 年 3 月 5 日\]](#2025-年-3-月-5-日)
-    - [\[2025 年 3 月 6 日 - 3 月 7 日\]](#2025-年-3-月-6-日---3-月-7-日)
+    - [\[2025 年 3 月 7 日\]](#2025-年-3-月-7-日)
     - [\[2025 年 3 月 8 日\]](#2025-年-3-月-8-日)
+    - [\[2025 年 3 月 16 日\]](#2025-年-3-月-16-日)
   - [极简环境配置](#极简环境配置)
     - [特定网络工具使用指南](#特定网络工具使用指南)
     - [Miniconda 安装](#miniconda-安装)
@@ -231,13 +232,67 @@ Github: https://github.com/OpenRobotLab/HIMLoco
 ### [2025 年 3 月 5 日]
 今天完成了PPT大部分内容-[毕设-cdh](https://suyvt0crm5.feishu.cn/docx/ZsUvd5iTKorhvsxocvdcNj3Unuh)，还剩实验部分，照着这个视频做：[基于Isaac Gym的四足机器狗强化学习控制翻越梅花桩](https://www.bilibili.com/video/BV1qQ4VefEa6/?spm_id_from=333.1007.top_right_bar_window_custom_collection.content.click&vd_source=17ff47d01089cfbc609f2983503e8663)。
 
-### [2025 年 3 月 6 日 - 3 月 7 日]
+### [2025 年 3 月 7 日]
 完成了[毕设中期答辩-ppt](https://suyvt0crm5.feishu.cn/docx/F405d8oTnoZYa0x3OwrcVKoqnif)。
 
 
 ### [2025 年 3 月 8 日]
 [怎么把vscode窗口调透明(linux版本)](https://aicoding.csdn.net/6780b51659bcf8384aa20e68.html?dp_token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MzAxNzMyNywiZXhwIjoxNzQyMDQ5ODgzLCJpYXQiOjE3NDE0NDUwODMsInVzZXJuYW1lIjoiYnVtYWlrZWwifQ.w6busCc_8WboikZkh-8EkGkbyGkLzBH_Nu4G74GMpZk&spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-106723246-blog-103627296.235%5Ev43%5Epc_blog_bottom_relevance_base3&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-106723246-blog-103627296.235%5Ev43%5Epc_blog_bottom_relevance_base3&utm_relevant_index=10)
 一边写代码，一边看视频哈哈！
+
+### [2025 年 3 月 16 日]
+今日继续深入研究**经典内模估计 + 强化学习**项目即**HIMLoco**，具体工作进展如下：
+
+1. **前期研究总结与新方向确定**：前几日阅读了不少相关论文，发现其大致思路较为相似。因此，今日决定重新聚焦于**HIMLoco**项目进行深入探索，期望能挖掘新的研究突破点。
+
+2. **代码研究与GPU测试**：
+    - 仔细研读了`train.py`的代码，对代码结构和运行逻辑有了更清晰的认识。
+    - 对本电脑可同时训练的最大环境数进行了测试。当设置`num_envs = 3500`时，GPU的占用情况为：
+```
+7842MiB / 8188MiB |     68%
+```
+这表明在该环境数设置下，GPU资源已接近饱和，利用率较高。
+
+3. **GPU实时监控方法**：若要实时监控GPU的利用率，可使用`watch`命令结合`nvidia-smi`。具体操作命令为：
+```bash
+watch -n 1 nvidia-smi
+```
+该命令会每隔1秒自动更新一次GPU的相关信息，有助于我们实时观察GPU利用率的变化情况，以便及时调整训练参数。
+
+4. **项目回顾与拓展**：回顾之前接触的**HIMLoco**项目，即“经典内模估计 + 强化学习，四足机器人训练一小时，即可穿越任意地形”项目，其相关资源如下：
+    - **论文**：https://arxiv.org/pdf/2312.11460
+    - **Github**：https://github.com/OpenRobotLab/HIMLoco
+    - **项目网页**：https://junfeng-long.github.io/HIMLoco/ 
+
+后续计划进一步探索该项目的潜力，比如尝试优化训练过程、改进奖励函数等，以提升四足机器人在复杂地形中的表现。同时，持续关注该领域的最新研究动态，为项目的深入研究提供更多思路和方法。 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 极简环境配置
 ### 特定网络工具使用指南
